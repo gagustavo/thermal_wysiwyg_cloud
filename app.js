@@ -3,13 +3,14 @@ var express = require('express')
   , port = 9911
 
   , fs = require('fs')
-  , sys = require('sys')
+  , sys = require('util')
   , exec = require('child_process').exec
-  , child
+  , child,
+  bodyParser = require('body-parser')
 ;
 
 app.use(express.static(__dirname + '/page'));
-app.use(express.bodyParser());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/cap', function(req,res){
   exec('phantomjs phantom.js', function(err, stdout){
